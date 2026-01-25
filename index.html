@@ -1,11 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <title>Digital Addiction Risk Assessment System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white border-b shadow-sm">
+        <div class="max-w-6xl mx-auto px-6">
+
+            <!-- Top Row -->
+            <div class="flex items-center justify-between h-16">
+
+                <!-- Title -->
+                <div class="flex flex-col leading-tight">
+                    <a href="index.html" class="text-lg font-semibold text-gray-900">
+                        Digital Addiction Risk Assessment System
+                    </a>
+                    <span class="text-xs text-gray-500">
+                        Kageshwori–Manohara Municipality
+                    </span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-700">
+                    <a href="#model" class="hover:text-blue-600 transition">Use Model</a>
+                    <a href="#usage" class="hover:text-blue-600 transition">Digital Usage Behaviours</a>
+                    <a href="#risk" class="hover:text-blue-600 transition">Risk Category</a>
+                    <a href="#metrics" class="hover:text-blue-600 transition">Metrics</a>
+                    <a href="about.html" class="hover:text-blue-600 transition">About This Project</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden border-t">
+                <nav class="py-4 space-y-3 text-sm text-gray-700">
+                    <a href="#model" class="block hover:text-blue-600">Model</a>
+                    <a href="#usage" class="block hover:text-blue-600">Digital Usage Behaviours</a>
+                    <a href="#risk" class="block hover:text-blue-600">Risk Category</a>
+                    <a href="#metrics" class="block hover:text-blue-600">Metrics</a>
+                    <a href="about.html" class="block hover:text-blue-600">About This Project</a>
+                </nav>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Mobile Menu Toggle -->
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+    </script>
+
+
 </head>
-<body>
-    hello world
+<body class="bg-gray-50 text-gray-800">
+  <!-- Main Content -->
+    <main id="index" class="max-w-5xl mx-auto px-6 py-10 space-y-10">
+        <!-- Page Header -->
+        <section class="border-b pb-6">
+            <h1 class="text-3xl font-bold text-gray-900">
+                Digital Addiction Risk Assessment System
+            </h1>
+            <p class="mt-2 text-lg text-gray-600">
+                A Data-Driven Early Warning System for Students' Digital Addiction Risk Identifications
+            </p>
+        </section>
+
+
+         <!-- Dashboard -->
+        <section class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-3">Dashboard 1</h2>
+            <p class="leading-relaxed text-gray-700">
+                Some dashboard content goes here.
+            </p>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-3">Dashboard 1</h2>
+            <p class="leading-relaxed text-gray-700">
+                Some dashboard content goes here.
+            </p>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-3">Dashboard 1</h2>
+            <p class="leading-relaxed text-gray-700">
+                Some dashboard content goes here.
+            </p>
+        </section>
+
+
+
+        <footer class="border-t bg-white">
+            <div class="max-w-6xl mx-auto px-6 py-6">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+
+                   <p class="text-sm text-gray-500">
+                        © <span id="year"></span> Kageshwori–Manohara Municipality for Academic & Research Use Only
+                    </p>
+
+            <script>
+                document.getElementById("year").textContent = new Date().getFullYear();
+            </script>
+                </div>
+            </div>
+        </footer>
+
+
+    </main>
 </body>
 </html>
