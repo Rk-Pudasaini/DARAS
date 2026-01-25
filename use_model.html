@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Use Model | Digital Addiction Risk Assessment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+      <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white border-b shadow-sm">
+        <div class="max-w-6xl mx-auto px-6">
+
+            <!-- Top Row -->
+            <div class="flex items-center justify-between h-16">
+
+                <!-- Title -->
+                <div class="flex flex-col leading-tight">
+                    <a href="index.html" class="text-lg font-semibold text-gray-900">
+                        Digital Addiction Risk Assessment System
+                    </a>
+                    <span class="text-xs text-gray-500">
+                        Kageshwori–Manohara Municipality
+                    </span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-700">
+                    <a href="use_model.html" class="text-blue-600 font-semibold">Use Model</a>
+                    <a href="#usage" class="hover:text-blue-600 transition">Digital Usage Behaviours</a>
+                    <a href="#risk" class="hover:text-blue-600 transition">Risk Category</a>
+                    <a href="#metrics" class="hover:text-blue-600 transition">Metrics</a>
+                    <a href="about.html" class="hover:text-blue-600 transition">About This Project</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden border-t">
+                <nav class="py-4 space-y-3 text-sm text-gray-700">
+                    <a href="use_model.html" class="text-blue-600 font-semibold">Model</a>
+                    <a href="#usage" class="block hover:text-blue-600">Digital Usage Behaviours</a>
+                    <a href="#risk" class="block hover:text-blue-600">Risk Category</a>
+                    <a href="#metrics" class="block hover:text-blue-600">Metrics</a>
+                    <a href="about.html" class="block hover:text-blue-600">About This Project</a>
+                </nav>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Mobile Menu Toggle -->
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Main Content -->
+    <main id="behavior" class="max-w-5xl mx-auto px-6 py-10 space-y-10">
+        <!-- Page Header -->
+        <section class="border-b pb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Use the Prediction Model</h1>
+            <p class="mt-2 text-lg text-gray-600">
+                Take a survey to identify your digital addiction risk level based on your digital usage patterns
+            </p>
+        </section>
+
+        <!-- Model Instructions -->
+        <section class="bg-blue-50 border border-blue-100 rounded-xl p-6">
+            <h2 class="text-lg font-semibold mb-2">How the Model Works</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                <li>Inputs are based on validated digital usage and behavior indicators</li>
+                <li>A trained machine learning model analyzes risk patterns</li>
+                <li>The output classifies risk as <b>Not at Risk, Mild, Moderate, or Severe</b></li>
+            </ul>
+        </section>
+
+         <!-- Input Form -->
+        <section class="bg-white rounded-xl shadow-sm p-6 space-y-6">
+        <form id="behaviorForm" class="space-y-8">
+        <!-- Demographics -->
+        <section id="demographics" class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-3">Input Demographic Data</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium">Institute Name</label>
+                    <input id="institute" type="text" required 
+                        class="mt-1 w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter your institute name">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Age</label>
+                    <input id="age" type="number" min="15" max="45" required
+                        class="mt-1 w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter your age between 15-45">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Gender</label>
+                    <select id="gender" required
+                            class="mt-1 w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Digital Addiction Compulsive Behaviours -->
+        <section id="compulsive-behaviours" class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-1">Digital Addiction Compulsive Behaviours</h2>
+            <p class="text-sm text-gray-600 mb-4">
+                Rate each statement from 1 (Not at all) to 5 (Extremely)
+            </p>
+
+            <div class="overflow-x-auto">
+                <table class="w-full border border-gray-200 text-sm">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="text-left px-4 py-2 border">Statements</th>
+                            <th class="text-center px-3 py-2 border">1</th>
+                            <th class="text-center px-3 py-2 border">2</th>
+                            <th class="text-center px-3 py-2 border">3</th>
+                            <th class="text-center px-3 py-2 border">4</th>
+                            <th class="text-center px-3 py-2 border">5</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 border">DA1: I lose track of time while on my phone</td>
+                            <td class="text-center border"><input type="radio" name="da1" value="1" required></td>
+                            <td class="text-center border"><input type="radio" name="da1" value="2"></td>
+                            <td class="text-center border"><input type="radio" name="da1" value="3"></td>
+                            <td class="text-center border"><input type="radio" name="da1" value="4"></td>
+                            <td class="text-center border"><input type="radio" name="da1" value="5"></td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 border">DA2: I feel restless or irritable when I can’t use my phone</td>
+                            <td class="text-center border"><input type="radio" name="da2" value="1" required></td>
+                            <td class="text-center border"><input type="radio" name="da2" value="2"></td>
+                            <td class="text-center border"><input type="radio" name="da2" value="3"></td>
+                            <td class="text-center border"><input type="radio" name="da2" value="4"></td>
+                            <td class="text-center border"><input type="radio" name="da2" value="5"></td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 border">DA3: I have tried and failed to cut down my screen time</td>
+                            <td class="text-center border"><input type="radio" name="da3" value="1" required></td>
+                            <td class="text-center border"><input type="radio" name="da3" value="2"></td>
+                            <td class="text-center border"><input type="radio" name="da3" value="3"></td>
+                            <td class="text-center border"><input type="radio" name="da3" value="4"></td>
+                            <td class="text-center border"><input type="radio" name="da3" value="5"></td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 border">DA4: I skip or delay important tasks due to phone or social media use</td>
+                            <td class="text-center border"><input type="radio" name="da4" value="1" required></td>
+                            <td class="text-center border"><input type="radio" name="da4" value="2"></td>
+                            <td class="text-center border"><input type="radio" name="da4" value="3"></td>
+                            <td class="text-center border"><input type="radio" name="da4" value="4"></td>
+                            <td class="text-center border"><input type="radio" name="da4" value="5"></td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 border">DA5: I use my phone to cope with negative emotions</td>
+                            <td class="text-center border"><input type="radio" name="da5" value="1" required></td>
+                            <td class="text-center border"><input type="radio" name="da5" value="2"></td>
+                            <td class="text-center border"><input type="radio" name="da5" value="3"></td>
+                            <td class="text-center border"><input type="radio" name="da5" value="4"></td>
+                            <td class="text-center border"><input type="radio" name="da5" value="5"></td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 border">DA6: I check my phone immediately upon waking</td>
+                            <td class="text-center border"><input type="radio" name="da6" value="1" required></td>
+                            <td class="text-center border"><input type="radio" name="da6" value="2"></td>
+                            <td class="text-center border"><input type="radio" name="da6" value="3"></td>
+                            <td class="text-center border"><input type="radio" name="da6" value="4"></td>
+                            <td class="text-center border"><input type="radio" name="da6" value="5"></td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 border">DA7: I feel compelled to check notifications during classes or study</td>
+                            <td class="text-center border"><input type="radio" name="da7" value="1" required></td>
+                            <td class="text-center border"><input type="radio" name="da7" value="2"></td>
+                            <td class="text-center border"><input type="radio" name="da7" value="3"></td>
+                            <td class="text-center border"><input type="radio" name="da7" value="4"></td>
+                            <td class="text-center border"><input type="radio" name="da7" value="5"></td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 border">DA8: Friends or family have commented that I use my phone too much</td>
+                            <td class="text-center border"><input type="radio" name="da8" value="1" required></td>
+                            <td class="text-center border"><input type="radio" name="da8" value="2"></td>
+                            <td class="text-center border"><input type="radio" name="da8" value="3"></td>
+                            <td class="text-center border"><input type="radio" name="da8" value="4"></td>
+                            <td class="text-center border"><input type="radio" name="da8" value="5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="flex justify-between text-xs text-gray-500 mt-2 px-1">
+                    <span>1 = Not at all</span>
+                    <span>5 = Extremely</span>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Digital Usage Behaviors -->
+        <section id="digital-usage" class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-4">Digital Usage Behaviors</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Primary Device -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Primary device you use daily</label>
+                    <select id="primary_device" required
+                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>Smartphone</option>
+                        <option>Laptop</option>
+                        <option>Tablet</option>
+                    </select>
+                </div>
+
+                <!-- Own Smartphone -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Own a personal smartphone?</label>
+                    <select id="own_smartphone" required
+                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+
+                <!-- Mobile Data -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Mobile data plan availability</label>
+                    <select id="mobile_data" required
+                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>Always</option>
+                        <option>Sometimes</option>
+                        <option>Rarely</option>
+                        <option>No</option>
+                    </select>
+                </div>
+
+                <!-- Screen Time Weekdays -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Avg. daily screen time (weekdays)</label>
+                    <select id="screen_weekdays" required
+                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>&lt;2h</option>
+                        <option>2–3h</option>
+                        <option>3–4h</option>
+                        <option>4–6h</option>
+                        <option>&gt;6h</option>
+                    </select>
+                </div>
+
+                <!-- Screen Time Weekends -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Avg. daily screen time (weekends)</label>
+                    <select id="screen_weekends" required
+                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>&lt;2h</option>
+                        <option>2–3h</option>
+                        <option>3–4h</option>
+                        <option>4–6h</option>
+                        <option>&gt;6h</option>
+                    </select>
+                </div>
+
+                <!-- Night Phone Use -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Night-time phone use after lights-off</label>
+                    <select id="night_phone_use" required
+                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>Never</option>
+                        <option>&lt;30m</option>
+                        <option>30–60m</option>
+                        <option>1–2h</option>
+                        <option>&gt;2h</option>
+                    </select>
+                </div>
+
+                <!-- Notifications -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Notifications checked per hour</label>
+                    <select id="notif_per_hour" required
+                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>&lt;5 times</option>
+                        <option>5–10 times</option>
+                        <option>11–20 times</option>
+                        <option>&gt;20 times</option>
+                    </select>
+                </div>
+
+                <!-- Social Media Time -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Total time on social media per day</label>
+                    <select id="social_time" required
+                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>&lt;1h</option>
+                        <option>1–2h</option>
+                        <option>2–3h</option>
+                        <option>3–4h</option>
+                        <option>&gt;4h</option>
+                    </select>
+                </div>
+
+                <!-- Gaming Time -->
+                <div>
+                    <label class="block text-sm font-medium mb-1">Daily gaming time</label>
+                    <select id="gaming_time" required
+                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select</option>
+                        <option>None</option>
+                        <option>&lt;30m</option>
+                        <option>30–60m</option>
+                        <option>1–2h</option>
+                        <option>&gt;2h</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Platforms -->
+            <div class="mt-6">
+                <label class="block text-sm font-medium mb-2">Platforms used regularly</label>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                    <label><input type="checkbox" value="YouTube"> YouTube</label>
+                    <label><input type="checkbox" value="TikTok"> TikTok</label>
+                    <label><input type="checkbox" value="Instagram"> Instagram</label>
+                    <label><input type="checkbox" value="Facebook"> Facebook</label>
+                    <label><input type="checkbox" value="WhatsApp"> WhatsApp</label>
+                    <label><input type="checkbox" value="X/Twitter"> X </label>
+                    <label><input type="checkbox" value="Snapchat"> Snapchat</label>
+                    <label><input type="checkbox" value="Gaming"> Gaming</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Self Rated Digital Addiction -->
+        <section class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-4">Self Rated Digital Addiction</h2>
+
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="text-left py-2 px-3 text-sm font-medium text-gray-600">
+                                How would you rate your level of digital addiction?
+                            </th>
+                            <th class="text-center py-2 px-3 text-sm font-medium text-gray-600">Not at risk</th>
+                            <th class="text-center py-2 px-3 text-sm font-medium text-gray-600">Mild</th>
+                            <th class="text-center py-2 px-3 text-sm font-medium text-gray-600">Moderate</th>
+                            <th class="text-center py-2 px-3 text-sm font-medium text-gray-600">Severe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-3 px-3 text-gray-700">
+                                Self-assessment
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" name="self_rated_da" value="not_at_risk" required>
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" name="self_rated_da" value="mild">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" name="self_rated_da" value="moderate">
+                            </td>
+                            <td class="text-center">
+                                <input type="radio" name="self_rated_da" value="severe">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        </form>
+
+        <div class="pt-4">
+            <button id="predictBtn"
+                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                Predict Risk Level
+            </button>
+        </div>
+
+        </section>
+
+                    <!-- Prediction Result -->
+            <section class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-xl font-semibold mb-3">Prediction Result</h2>
+
+                <div class="flex items-center justify-between bg-gray-50 border rounded-lg p-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Predicted Risk Level</p>
+                        <p class="text-2xl font-bold text-orange-600">Moderate Risk</p>
+                    </div>
+                    <span class="text-sm bg-orange-100 text-orange-700 px-3 py-1 rounded-full">
+                        Needs Attention
+                    </span>
+                </div>
+
+                <p class="mt-4 text-gray-700">
+                    This individual shows behavioral patterns associated with moderate digital addiction risk.
+                    Preventive awareness and healthy digital habits are recommended.
+                </p>
+            </section>
+
+            <!-- Disclaimer -->
+            <section class="bg-white rounded-xl shadow-sm p-6 text-sm text-gray-500"> 
+                <p>
+                    ⚠ This tool is for academic and policy-support purposes only.
+                    It does not replace professional medical or psychological assessment.
+                </p>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t bg-white">
+            <div class="max-w-6xl mx-auto px-6 py-6 text-sm text-gray-500 text-center">
+                © <span id="year"></span> Kageshwori–Manohara Municipality — Academic & Research Use Only
+            </div>
+        </footer>
+
+                <script>
+                    document.getElementById("year").textContent = new Date().getFullYear();
+                </script>
+
+                <script>
+                document.getElementById("predictBtn").addEventListener("click", function () {
+
+                const age = document.querySelector('input[type="number"]').value;
+                const selects = document.querySelectorAll("select");
+
+                // Age validation
+                if (!age || age < 15 || age > 45) {
+                    alert("Please enter a valid age between 15 and 45.");
+                    return;
+                }
+
+                // Select dropdown validation
+                for (let select of selects) {
+                    if (select.value === "") {
+                        alert("Please complete all required fields before prediction.");
+                        return;
+                    }
+                }
+
+                // If validation passes
+                alert("Inputs validated successfully. Model prediction can proceed.");
+
+                // 👉 Later: call ML API here
+                    });
+                </script>
+
+            </main>
+           
+
+</body>
+
+</html>
