@@ -1,0 +1,55 @@
+# ================================
+# Virtual Environments
+# ================================
+venv/
+env/
+.venv/
+ENV/
+
+# ================================
+# Python cache
+# ================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ================================
+# Django specific
+# ================================
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+*.log
+local_settings.py
+
+# ================================
+# Environment variables (Secrets)
+# ================================
+.env
+.env.*
+*.env
+
+# ================================
+# PostgreSQL backups / dumps
+# ================================
+*.sql
+*.dump
+
+# ================================
+# Jupyter / Data Science
+# ================================
+.ipynb_checkpoints/
+
+# ================================
+# IDE / Editor
+# ================================
+.vscode/
+.idea/
+
+# ================================
+# OS files
+# ================================
+.DS_Store
+Thumbs.db
+desktop.ini
