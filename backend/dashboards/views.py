@@ -24,12 +24,27 @@ def student_dashboard(request):
         return render(request, 'dashboards/student.html')
     return redirect('admin_dashboard')
 
+@login_required
+def use_model(request):
+    return render(request, 'students/use_model.html')
+
+@login_required
+def about(request):
+    return render(request, 'students/about.html')
 
 @login_required
 def admin_dashboard(request):
     if request.user.is_staff:
         return render(request, 'dashboards/admin.html')
     return redirect('student_dashboard')
+
+@login_required
+def digital_behaviour_insights(request):
+    return render(request, 'admin/insights.html')
+
+@login_required
+def metrics(request):
+    return render(request, 'admin/metrics.html')
 
 
 
