@@ -2,27 +2,228 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Metrics | Digital Addiction Risk Assessment</title>
+    <title>Model Metrics | Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
 
-    <header class="bg-green-600 text-white p-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold">Admin Dashboard</h1>
-        <a href="{% url 'logout' %}" class="bg-white text-green-600 px-3 py-1 rounded hover:bg-gray-200">Logout</a>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white border-b shadow-sm">
+        <div class="max-w-6xl mx-auto px-6">
+
+            <div class="flex items-center justify-between h-16">
+
+                <!-- Title -->
+                <div class="flex flex-col leading-tight">
+                    <a href="{% url 'admin_dashboard' %}" class="text-lg font-semibold text-gray-900">
+                        Digital Addiction Risk Assessment System
+                    </a>
+                    <span class="text-xs text-gray-500">
+                        Admin Panel · Kageshwori–Manohara Municipality
+                    </span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-700">
+                    <a href="{% url 'insights' %}" class="hover:text-green-600 transition">
+                        Insights
+                    </a>
+                    <a href="{% url 'metrics' %}" class="text-green-600 font-semibold">
+                        Metrics
+                    </a>
+                    <a href="{% url 'logout' %}" class="text-red-600 hover:text-red-700 transition">
+                        Logout
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden border-t">
+                <nav class="py-4 space-y-3 text-sm text-gray-700">
+                    <a href="{% url 'insights' %}" class="block hover:text-green-600">
+                        Insights
+                    </a>
+                    <a href="{% url 'metrics' %}" class="block text-green-600 font-semibold">
+                        Metrics
+                    </a>
+                    <a href="{% url 'logout' %}" class="block text-red-600 hover:text-red-700">
+                        Logout
+                    </a>
+                </nav>
+            </div>
+
+        </div>
     </header>
 
-    <main class="p-6">
-        <h2 class="text-2xl font-semibold mb-4">Welcome, {{ request.user.username }}</h2>
+    <!-- Mobile Menu Script -->
+    <script>
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
 
-        <p class="mb-4">This is your metrics Page</p>
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+    </script>
 
-        <!-- Example placeholder for management -->
-        <div class="bg-white p-4 rounded shadow">
-            <h3 class="font-bold mb-2">metrics</h3>
-            <p>No metrics to display.</p>
-        </div>
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-10 space-y-10">
+
+        <!-- Page Header -->
+        <section class="border-b pb-6">
+            <h1 class="text-3xl font-bold text-gray-900">
+                Model Performance Metrics
+            </h1>
+            <p class="mt-2 text-lg text-gray-600">
+                Evaluation of digital addiction risk prediction model performance and reliability.
+            </p>
+        </section>
+
+        <!-- Core Metrics -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <p class="text-sm text-gray-500">Accuracy</p>
+                <p class="text-3xl font-bold text-green-600 mt-1">—</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <p class="text-sm text-gray-500">Precision</p>
+                <p class="text-3xl font-bold text-blue-600 mt-1">—</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <p class="text-sm text-gray-500">Recall (Sensitivity)</p>
+                <p class="text-3xl font-bold text-orange-600 mt-1">—</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <p class="text-sm text-gray-500">F1-Score</p>
+                <p class="text-3xl font-bold text-purple-600 mt-1">—</p>
+            </div>
+
+        </section>
+
+        <!-- Confusion Matrix -->
+        <section class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-3">
+                Confusion Matrix
+            </h2>
+            <p class="text-gray-700 mb-4">
+                Classification performance across risk categories (Not at Risk, Mild, Moderate, Severe).
+            </p>
+
+            <div class="h-64 flex items-center justify-center border border-dashed rounded-lg text-gray-400">
+                Confusion matrix visualization placeholder
+            </div>
+        </section>
+
+        <!-- Class-wise Performance -->
+        <section class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-xl font-semibold mb-3">
+                Class-wise Performance Metrics
+            </h2>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full border border-gray-200 text-sm">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 border">Risk Class</th>
+                            <th class="px-4 py-2 border">Precision</th>
+                            <th class="px-4 py-2 border">Recall</th>
+                            <th class="px-4 py-2 border">F1-Score</th>
+                            <th class="px-4 py-2 border">Support</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td class="px-4 py-2 border">Not at Risk</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                        </tr>
+                        <tr class="text-center bg-gray-50">
+                            <td class="px-4 py-2 border">Mild</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                        </tr>
+                        <tr class="text-center">
+                            <td class="px-4 py-2 border">Moderate</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                        </tr>
+                        <tr class="text-center bg-gray-50">
+                            <td class="px-4 py-2 border">Severe</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                            <td class="border">—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Model Reliability & Policy Metrics -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-xl font-semibold mb-3">
+                    Model Reliability
+                </h2>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>Cross-validation score</li>
+                    <li>Overfitting / underfitting check</li>
+                    <li>Stability across institutions</li>
+                    <li>Bias check across gender & age</li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-xl font-semibold mb-3">
+                    Policy-Relevant Indicators
+                </h2>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>High-risk identification rate</li>
+                    <li>False-negative rate (critical)</li>
+                    <li>Early intervention potential</li>
+                    <li>Population-level trend sensitivity</li>
+                </ul>
+            </div>
+
+        </section>
+
     </main>
+
+    <!-- Footer -->
+    <footer class="border-t bg-white mt-10">
+        <div class="max-w-6xl mx-auto px-6 py-6 text-center">
+            <p class="text-sm text-gray-500">
+                © <span id="year"></span> Kageshwori–Manohara Municipality · Academic & Research Use Only
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
 </body>
 </html>
