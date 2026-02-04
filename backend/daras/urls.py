@@ -28,6 +28,14 @@ urlpatterns = [
     path('auth/', include('accounts.urls')),
     path('dashboards/', include('dashboards.urls')),
 
+    path('assessment/', include('assessment.urls')),
+
+    # CORRECT
+    path('api/', include("assessment.api.urls")),
+
+
+
+
 ]
 
 

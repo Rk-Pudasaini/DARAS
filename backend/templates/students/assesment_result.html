@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assessment Result</title>
+</head>
+<body>
+    <h1>Digital Addiction Assessment Result</h1>
+    <p>Participant: {{ assessment.participant_name }}</p>
+    <p>Predicted Risk: <strong>{{ assessment.predicted_risk }}</strong></p>
+    <p>Submitted At: {{ assessment.created_at }}</p>
+
+    <a href="{% url 'use-model' %}">Take Another Assessment</a>
+</body>
+</html>

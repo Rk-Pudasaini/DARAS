@@ -128,6 +128,7 @@
         id="behaviorForm"
         class="space-y-8 bg-white rounded-xl shadow-sm p-6"
       >
+        {% csrf_token %} {{ form.as_p }}
         <!-- Demographics -->
         <section id="demographics">
           <h2 class="text-xl font-semibold mb-3">Demographic Data</h2>
@@ -377,198 +378,269 @@
 
         <!-- Digital Usage Behaviors -->
         <section id="digital-usage" class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-xl font-semibold mb-4">Digital Usage Behaviors</h2>
+          <h2 class="text-xl font-semibold mb-4">Digital Usage Behaviors</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                <!-- Primary Device -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Primary device you use daily</label>
-                    <select id="primary_device" required
-                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select</option>
-                        <option>Smartphone</option>
-                        <option>Laptop</option>
-                        <option>Tablet</option>
-                    </select>
-                </div>
-
-                <!-- Own Smartphone -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Own a personal smartphone?</label>
-                    <select id="own_smartphone" required
-                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select</option>
-                        <option>Yes</option>
-                        <option>No</option>
-                    </select>
-                </div>
-
-                <!-- Mobile Data -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Mobile data plan availability</label>
-                    <select id="mobile_data" required
-                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select</option>
-                        <option>Always</option>
-                        <option>Sometimes</option>
-                        <option>Rarely</option>
-                        <option>No</option>
-                    </select>
-                </div>
-
-                <!-- Screen Time Weekdays -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Avg. daily screen time (weekdays)</label>
-                    <select id="screen_weekdays" required
-                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select</option>
-                        <option>&lt;2h</option>
-                        <option>2–3h</option>
-                        <option>3–4h</option>
-                        <option>4–6h</option>
-                        <option>&gt;6h</option>
-                    </select>
-                </div>
-
-                <!-- Screen Time Weekends -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Avg. daily screen time (weekends)</label>
-                    <select id="screen_weekends" required
-                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select</option>
-                        <option>&lt;2h</option>
-                        <option>2–3h</option>
-                        <option>3–4h</option>
-                        <option>4–6h</option>
-                        <option>&gt;6h</option>
-                    </select>
-                </div>
-
-                <!-- Night Phone Use -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Night-time phone use after lights-off</label>
-                    <select id="night_phone_use" required
-                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select</option>
-                        <option>Never</option>
-                        <option>&lt;30m</option>
-                        <option>30–60m</option>
-                        <option>1–2h</option>
-                        <option>&gt;2h</option>
-                    </select>
-                </div>
-
-                <!-- Notifications -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Notifications checked per hour</label>
-                    <select id="notif_per_hour" required
-                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select</option>
-                        <option>&lt;5 times</option>
-                        <option>5–10 times</option>
-                        <option>11–20 times</option>
-                        <option>&gt;20 times</option>
-                    </select>
-                </div>
-
-                <!-- Social Media Time -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Total time on social media per day</label>
-                    <select id="social_time" required
-                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select</option>
-                        <option>&lt;1h</option>
-                        <option>1–2h</option>
-                        <option>2–3h</option>
-                        <option>3–4h</option>
-                        <option>&gt;4h</option>
-                    </select>
-                </div>
-
-                <!-- Gaming Time -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Daily gaming time</label>
-                    <select id="gaming_time" required
-                        class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select</option>
-                        <option>None</option>
-                        <option>&lt;30m</option>
-                        <option>30–60m</option>
-                        <option>1–2h</option>
-                        <option>&gt;2h</option>
-                    </select>
-                </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Primary Device -->
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Primary device you use daily</label
+              >
+              <select
+                id="primary_device"
+                required
+                class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option>Smartphone</option>
+                <option>Laptop</option>
+                <option>Tablet</option>
+              </select>
             </div>
 
-            <!-- Platforms -->
-            <div class="mt-6">
-                <label class="block text-sm font-medium mb-2">Platforms used regularly</label>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                    <label><input type="checkbox" value="YouTube"> YouTube</label>
-                    <label><input type="checkbox" value="TikTok"> TikTok</label>
-                    <label><input type="checkbox" value="Instagram"> Instagram</label>
-                    <label><input type="checkbox" value="Facebook"> Facebook</label>
-                    <label><input type="checkbox" value="WhatsApp"> WhatsApp</label>
-                    <label><input type="checkbox" value="X/Twitter"> X </label>
-                    <label><input type="checkbox" value="Snapchat"> Snapchat</label>
-                    <label><input type="checkbox" value="Gaming"> Gaming</label>
-                </div>
+            <!-- Own Smartphone -->
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Own a personal smartphone?</label
+              >
+              <select
+                id="own_smartphone"
+                required
+                class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
             </div>
+
+            <!-- Mobile Data -->
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Mobile data plan availability</label
+              >
+              <select
+                id="mobile_data"
+                required
+                class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option>Always</option>
+                <option>Sometimes</option>
+                <option>Rarely</option>
+                <option>No</option>
+              </select>
+            </div>
+
+            <!-- Screen Time Weekdays -->
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Avg. daily screen time (weekdays)</label
+              >
+              <select
+                id="screen_weekdays"
+                required
+                class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option>&lt;2h</option>
+                <option>2–3h</option>
+                <option>3–4h</option>
+                <option>4–6h</option>
+                <option>&gt;6h</option>
+              </select>
+            </div>
+
+            <!-- Screen Time Weekends -->
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Avg. daily screen time (weekends)</label
+              >
+              <select
+                id="screen_weekends"
+                required
+                class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option>&lt;2h</option>
+                <option>2–3h</option>
+                <option>3–4h</option>
+                <option>4–6h</option>
+                <option>&gt;6h</option>
+              </select>
+            </div>
+
+            <!-- Night Phone Use -->
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Night-time phone use after lights-off</label
+              >
+              <select
+                id="night_phone_use"
+                required
+                class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option>Never</option>
+                <option>&lt;30m</option>
+                <option>30–60m</option>
+                <option>1–2h</option>
+                <option>&gt;2h</option>
+              </select>
+            </div>
+
+            <!-- Notifications -->
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Notifications checked per hour</label
+              >
+              <select
+                id="notif_per_hour"
+                required
+                class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option>&lt;5 times</option>
+                <option>5–10 times</option>
+                <option>11–20 times</option>
+                <option>&gt;20 times</option>
+              </select>
+            </div>
+
+            <!-- Social Media Time -->
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Total time on social media per day</label
+              >
+              <select
+                id="social_time"
+                required
+                class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option>&lt;1h</option>
+                <option>1–2h</option>
+                <option>2–3h</option>
+                <option>3–4h</option>
+                <option>&gt;4h</option>
+              </select>
+            </div>
+
+            <!-- Gaming Time -->
+            <div>
+              <label class="block text-sm font-medium mb-1"
+                >Daily gaming time</label
+              >
+              <select
+                id="gaming_time"
+                required
+                class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select</option>
+                <option>None</option>
+                <option>&lt;30m</option>
+                <option>30–60m</option>
+                <option>1–2h</option>
+                <option>&gt;2h</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Platforms -->
+          <div class="mt-6">
+            <label class="block text-sm font-medium mb-2"
+              >Platforms used regularly</label
+            >
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+              <label><input type="checkbox" value="YouTube" /> YouTube</label>
+              <label><input type="checkbox" value="TikTok" /> TikTok</label>
+              <label
+                ><input type="checkbox" value="Instagram" /> Instagram</label
+              >
+              <label><input type="checkbox" value="Facebook" /> Facebook</label>
+              <label><input type="checkbox" value="WhatsApp" /> WhatsApp</label>
+              <label><input type="checkbox" value="X/Twitter" /> X </label>
+              <label><input type="checkbox" value="Snapchat" /> Snapchat</label>
+              <label><input type="checkbox" value="Gaming" /> Gaming</label>
+            </div>
+          </div>
         </section>
 
         <!-- Self Rated Digital Addiction -->
         <section class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-xl font-semibold mb-4">Self Rated Digital Addiction</h2>
+          <h2 class="text-xl font-semibold mb-4">
+            Self Rated Digital Addiction
+          </h2>
 
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
-                    <thead>
-                        <tr class="border-b">
-                            <th class="text-left py-2 px-3 text-sm font-medium text-gray-600">
-                                How would you rate your level of digital addiction?
-                            </th>
-                            <th class="text-center py-2 px-3 text-sm font-medium text-gray-600">Not at risk</th>
-                            <th class="text-center py-2 px-3 text-sm font-medium text-gray-600">Mild</th>
-                            <th class="text-center py-2 px-3 text-sm font-medium text-gray-600">Moderate</th>
-                            <th class="text-center py-2 px-3 text-sm font-medium text-gray-600">Severe</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="py-3 px-3 text-gray-700">
-                                Self-assessment
-                            </td>
-                            <td class="text-center">
-                                <input type="radio" name="self_rated_da" value="not_at_risk" required>
-                            </td>
-                            <td class="text-center">
-                                <input type="radio" name="self_rated_da" value="mild">
-                            </td>
-                            <td class="text-center">
-                                <input type="radio" name="self_rated_da" value="moderate">
-                            </td>
-                            <td class="text-center">
-                                <input type="radio" name="self_rated_da" value="severe">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+              <thead>
+                <tr class="border-b">
+                  <th
+                    class="text-left py-2 px-3 text-sm font-medium text-gray-600"
+                  >
+                    How would you rate your level of digital addiction?
+                  </th>
+                  <th
+                    class="text-center py-2 px-3 text-sm font-medium text-gray-600"
+                  >
+                    Not at risk
+                  </th>
+                  <th
+                    class="text-center py-2 px-3 text-sm font-medium text-gray-600"
+                  >
+                    Mild
+                  </th>
+                  <th
+                    class="text-center py-2 px-3 text-sm font-medium text-gray-600"
+                  >
+                    Moderate
+                  </th>
+                  <th
+                    class="text-center py-2 px-3 text-sm font-medium text-gray-600"
+                  >
+                    Severe
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="py-3 px-3 text-gray-700">Self-assessment</td>
+                  <td class="text-center">
+                    <input
+                      type="radio"
+                      name="self_rated_da"
+                      value="not_at_risk"
+                      required
+                    />
+                  </td>
+                  <td class="text-center">
+                    <input type="radio" name="self_rated_da" value="mild" />
+                  </td>
+                  <td class="text-center">
+                    <input type="radio" name="self_rated_da" value="moderate" />
+                  </td>
+                  <td class="text-center">
+                    <input type="radio" name="self_rated_da" value="severe" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <!-- Submit Button -->
-          <div class="pt-4">
-            <button id="predictBtn"
-                    class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-                Predict Risk Level
-            </button>
+        <div class="pt-4">
+          <button
+            id="predictBtn"
+            class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Predict Risk Level
+          </button>
         </div>
       </form>
 
-     
-
-      <!-- Prediction Result -->
+      <!-- Prediction Result
       <section class="bg-white rounded-xl shadow-sm p-6 mt-6">
         <h2 class="text-xl font-semibold mb-3">Prediction Result</h2>
         <div
@@ -588,7 +660,7 @@
           This individual shows behavioral patterns associated with moderate
           digital addiction risk.
         </p>
-      </section>
+      </section> -->
 
       <!-- Disclaimer -->
       <section class="bg-white rounded-xl shadow-sm p-6 text-sm text-gray-500">
@@ -611,6 +683,31 @@
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+      document
+        .getElementById("behaviorForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const formData = Object.fromEntries(new FormData(e.target).entries());
+
+          const response = await fetch("/api/assessment/predict/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            // Redirect to result page
+            window.location.href = data.result_url;
+          } else {
+            alert("Error: " + JSON.stringify(data));
+          }
+        });
     </script>
   </body>
 </html>

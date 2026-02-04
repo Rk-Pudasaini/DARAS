@@ -1,8 +1,15 @@
 from django.db import models
 from django.conf import settings
 
-
 class DigitalAddictionAssessment(models.Model):
+    
+    RISK_CHOICES = [
+        ("Not at Risk", "Not at Risk"),
+        ("Mild", "Mild"),
+        ("Moderate", "Moderate"),
+        ("Severe", "Severe"),
+    ]
+    
     student = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
@@ -42,6 +49,7 @@ class DigitalAddictionAssessment(models.Model):
     # ML Output
     predicted_risk = models.CharField(
         max_length=20,
+        choices=RISK_CHOICES,
         null=True,
         blank=True
     )
