@@ -17,15 +17,15 @@ class DigitalAddictionAssessment(models.Model):
     ]
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
 
-    # Digital Addiction Compulsive Behaviours (DA1 - DA8)
-    da1 = models.PositiveSmallIntegerField()
-    da2 = models.PositiveSmallIntegerField()
-    da3 = models.PositiveSmallIntegerField()
-    da4 = models.PositiveSmallIntegerField()
-    da5 = models.PositiveSmallIntegerField()
-    da6 = models.PositiveSmallIntegerField()
-    da7 = models.PositiveSmallIntegerField()
-    da8 = models.PositiveSmallIntegerField()
+ # Digital Addiction Compulsive Behaviours (DA1 - DA8)
+    da1 = models.PositiveSmallIntegerField(null=True, blank=True)
+    da2 = models.PositiveSmallIntegerField(null=True, blank=True)
+    da3 = models.PositiveSmallIntegerField(null=True, blank=True)
+    da4 = models.PositiveSmallIntegerField(null=True, blank=True)
+    da5 = models.PositiveSmallIntegerField(null=True, blank=True)
+    da6 = models.PositiveSmallIntegerField(null=True, blank=True)
+    da7 = models.PositiveSmallIntegerField(null=True, blank=True)
+    da8 = models.PositiveSmallIntegerField(null=True, blank=True)
 
     # Digital Usage Behaviours
     DEVICE_CHOICES = [

@@ -1,12 +1,21 @@
-from django.urls import path, include
-from . import views
-from .api.views import DigitalAddictionAssessmentDetailAPI, PredictAssessmentView
+from django.urls import path
+from assessment.api.views import (
+    PredictAssessmentView,
+    DigitalAddictionAssessmentDetailAPI,
+)
+from assessment.views import assessment_result_page
 
 urlpatterns = [
-    
-    #path('use-model/', views.use_model, name='use-model'),  # Form page
-    path('predict/', PredictAssessmentView.as_view(), name='assessment-predict'),  # API endpoint for prediction
-    path('<int:pk>/', DigitalAddictionAssessmentDetailAPI.as_view(), name='assessment-detail'),  # API endpoint for retrieving assessment details
-    
+    path("predict/", PredictAssessmentView.as_view(), name="predict-assessment"),
+    path(
+        "<int:pk>/",
+        DigitalAddictionAssessmentDetailAPI.as_view(),
+        name="assessment-detail"
+    ),
 
+
+    path("students/assessment_result/<int:pk>/", assessment_result_page, name="assessment-result-page"),
 ]
+
+
+

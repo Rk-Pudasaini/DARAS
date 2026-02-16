@@ -1,10 +1,6 @@
 from rest_framework import serializers
 from assessment.models import DigitalAddictionAssessment
 
-# assessment/serializers.py
-from rest_framework import serializers
-from assessment.models import DigitalAddictionAssessment
-
 class DigitalAddictionAssessmentSerializer(serializers.ModelSerializer):
     student = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
@@ -32,12 +28,11 @@ class DigitalAddictionAssessmentSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["predicted_risk", "risk_confidence"]
 
-
     # ------------------------------
     # FIELD VALIDATIONS
     # ------------------------------
     def validate_age(self, value):
-        if value < 15 or value > 45:
+        if not 15 <= value <= 45:
             raise serializers.ValidationError("Age must be between 15 and 45.")
         return value
 
@@ -46,72 +41,46 @@ class DigitalAddictionAssessmentSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Gender must be Male or Female.")
         return value
 
-    def validate_da1(self, value): return self.validate_da_field(value)
-    def validate_da2(self, value): return self.validate_da_field(value)
-    def validate_da3(self, value): return self.validate_da_field(value)
-    def validate_da4(self, value): return self.validate_da_field(value)
-    def validate_da5(self, value): return self.validate_da_field(value)
-    def validate_da6(self, value): return self.validate_da_field(value)
-    def validate_da7(self, value): return self.validate_da_field(value)
-    def validate_da8(self, value): return self.validate_da_field(value)
-
     def validate_da_field(self, value):
         if not 1 <= value <= 5:
             raise serializers.ValidationError("DA fields must be between 1 and 5.")
         return value
 
-    def validate_primary_device(self, value):
-        allowed = ["Smartphone", "Laptop", "Tablet"]
+    # Dynamically add da1-da8 validators
+    for i in range(1, 9):
+        locals()[f'validate_da{i}'] = lambda self, value, i=i: self.validate_da_field(value)
+
+    def validate_choice_field(self, value, allowed, field_name):
         if value not in allowed:
-            raise serializers.ValidationError(f"Primary device must be one of {allowed}.")
+            raise serializers.ValidationError(f"{field_name} must be one of {allowed}.")
         return value
+
+    def validate_primary_device(self, value):
+        return self.validate_choice_field(value, ["Smartphone", "Laptop", "Tablet"], "Primary device")
 
     def validate_own_smartphone(self, value):
-        if value not in ["Yes", "No"]:
-            raise serializers.ValidationError("Own smartphone must be Yes or No.")
-        return value
+        return self.validate_choice_field(value, ["Yes", "No"], "Own smartphone")
 
     def validate_mobile_data(self, value):
-        allowed = ["Always", "Sometimes", "Rarely", "No"]
-        if value not in allowed:
-            raise serializers.ValidationError(f"Mobile data must be one of {allowed}.")
-        return value
+        return self.validate_choice_field(value, ["Always", "Sometimes", "Rarely", "No"], "Mobile data")
 
     def validate_screen_weekdays(self, value):
-        allowed = ["<2h","2–3h","3–4h","4–6h",">6h"]
-        if value not in allowed:
-            raise serializers.ValidationError(f"Weekday screen time must be one of {allowed}.")
-        return value
+        return self.validate_choice_field(value, ["<2h","2–3h","3–4h","4–6h",">6h"], "Weekday screen time")
 
     def validate_screen_weekends(self, value):
-        allowed = ["<2h","2–3h","3–4h","4–6h",">6h"]
-        if value not in allowed:
-            raise serializers.ValidationError(f"Weekend screen time must be one of {allowed}.")
-        return value
+        return self.validate_choice_field(value, ["<2h","2–3h","3–4h","4–6h",">6h"], "Weekend screen time")
 
     def validate_night_phone_use(self, value):
-        allowed = ["Never","<30m","30–60m","1–2h",">2h"]
-        if value not in allowed:
-            raise serializers.ValidationError(f"Night phone use must be one of {allowed}.")
-        return value
+        return self.validate_choice_field(value, ["Never","<30m","30–60m","1–2h",">2h"], "Night phone use")
 
     def validate_notif_per_hour(self, value):
-        allowed = ["<5 times","5–10 times","11–20 times",">20 times"]
-        if value not in allowed:
-            raise serializers.ValidationError(f"Notifications per hour must be one of {allowed}.")
-        return value
+        return self.validate_choice_field(value, ["<5 times","5–10 times","11–20 times",">20 times"], "Notifications per hour")
 
     def validate_social_time(self, value):
-        allowed = ["<1h","1–2h","2–3h","3–4h",">4h"]
-        if value not in allowed:
-            raise serializers.ValidationError(f"Social media time must be one of {allowed}.")
-        return value
+        return self.validate_choice_field(value, ["<1h","1–2h","2–3h","3–4h",">4h"], "Social media time")
 
     def validate_gaming_time(self, value):
-        allowed = ["None","<30m","30–60m","1–2h",">2h"]
-        if value not in allowed:
-            raise serializers.ValidationError(f"Gaming time must be one of {allowed}.")
-        return value
+        return self.validate_choice_field(value, ["None","<30m","30–60m","1–2h",">2h"], "Gaming time")
 
     def validate_platforms(self, value):
         allowed = {"YouTube","TikTok","Instagram","Facebook","WhatsApp","X/Twitter","Snapchat","Gaming"}
@@ -123,17 +92,19 @@ class DigitalAddictionAssessmentSerializer(serializers.ModelSerializer):
         return value
 
     def validate_self_rated_da(self, value):
-        allowed = ["not_at_risk","mild","moderate","severe"]
-        if value not in allowed:
-            raise serializers.ValidationError(f"Self-rated DA must be one of {allowed}.")
-        return value
+        return self.validate_choice_field(value, ["not_at_risk","mild","moderate","severe"], "Self-rated DA")
 
     # --------------------------------------------------
     # CREATE
-    # Automatically attach logged-in student
+    # Automatically attach logged-in student & assign platforms
     # --------------------------------------------------
     def create(self, validated_data):
+        # Attach logged-in student
         request = self.context.get("request")
         if request and hasattr(request, "user"):
             validated_data["student"] = request.user
-        return super().create(validated_data)
+
+        # Platforms (list) is already in validated_data, no need to pop
+        instance = super().create(validated_data)
+
+        return instance

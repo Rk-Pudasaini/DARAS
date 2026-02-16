@@ -196,6 +196,7 @@
               </thead>
 
               <tbody>
+                <!-- DA1 -->
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3 border">
                     DA1: I lose track of time while on my phone
@@ -217,6 +218,7 @@
                   </td>
                 </tr>
 
+                <!-- DA2 -->
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3 border">
                     DA2: I feel restless or irritable when I can’t use my phone
@@ -238,6 +240,7 @@
                   </td>
                 </tr>
 
+                <!-- DA3 -->
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3 border">
                     DA3: I have tried and failed to cut down my screen time
@@ -259,6 +262,7 @@
                   </td>
                 </tr>
 
+                <!-- DA4 -->
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3 border">
                     DA4: I skip or delay important tasks due to phone or social
@@ -281,6 +285,7 @@
                   </td>
                 </tr>
 
+                <!-- DA5 -->
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3 border">
                     DA5: I use my phone to cope with negative emotions
@@ -302,6 +307,7 @@
                   </td>
                 </tr>
 
+                <!-- DA6 -->
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3 border">
                     DA6: I check my phone immediately upon waking
@@ -323,6 +329,7 @@
                   </td>
                 </tr>
 
+                <!-- DA7 -->
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3 border">
                     DA7: I feel compelled to check notifications during classes
@@ -345,6 +352,7 @@
                   </td>
                 </tr>
 
+                <!-- DA8 -->
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3 border">
                     DA8: Friends or family have commented that I use my phone
@@ -388,13 +396,14 @@
               >
               <select
                 id="primary_device"
+                name="primary_device"
                 required
                 class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select</option>
-                <option>Smartphone</option>
-                <option>Laptop</option>
-                <option>Tablet</option>
+                <option value="Smartphone">Smartphone</option>
+                <option value="Laptop">Laptop</option>
+                <option value="Tablet">Tablet</option>
               </select>
             </div>
 
@@ -405,12 +414,13 @@
               >
               <select
                 id="own_smartphone"
+                name="own_smartphone"
                 required
                 class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select</option>
-                <option>Yes</option>
-                <option>No</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
 
@@ -421,14 +431,15 @@
               >
               <select
                 id="mobile_data"
+                name="mobile_data"
                 required
                 class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select</option>
-                <option>Always</option>
-                <option>Sometimes</option>
-                <option>Rarely</option>
-                <option>No</option>
+                <option value="Always">Always</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Rarely">Rarely</option>
+                <option value="No">No</option>
               </select>
             </div>
 
@@ -439,15 +450,16 @@
               >
               <select
                 id="screen_weekdays"
+                name="screen_weekdays"
                 required
                 class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select</option>
-                <option>&lt;2h</option>
-                <option>2–3h</option>
-                <option>3–4h</option>
-                <option>4–6h</option>
-                <option>&gt;6h</option>
+                <option value="<2h">&lt;2h</option>
+                <option value="2–3h">2–3h</option>
+                <option value="3–4h">3–4h</option>
+                <option value="4–6h">4–6h</option>
+                <option value=">6h">&gt;6h</option>
               </select>
             </div>
 
@@ -458,15 +470,16 @@
               >
               <select
                 id="screen_weekends"
+                name="screen_weekends"
                 required
                 class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select</option>
-                <option>&lt;2h</option>
-                <option>2–3h</option>
-                <option>3–4h</option>
-                <option>4–6h</option>
-                <option>&gt;6h</option>
+                <option value="<2h">&lt;2h</option>
+                <option value="2–3h">2–3h</option>
+                <option value="3–4h">3–4h</option>
+                <option value="4–6h">4–6h</option>
+                <option value=">6h">&gt;6h</option>
               </select>
             </div>
 
@@ -477,15 +490,16 @@
               >
               <select
                 id="night_phone_use"
+                name="night_phone_use"
                 required
                 class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select</option>
-                <option>Never</option>
-                <option>&lt;30m</option>
-                <option>30–60m</option>
-                <option>1–2h</option>
-                <option>&gt;2h</option>
+                <option value="Never">Never</option>
+                <option value="<30m">&lt;30m</option>
+                <option value="30–60m">30–60m</option>
+                <option value="1–2h">1–2h</option>
+                <option value=">2h">&gt;2h</option>
               </select>
             </div>
 
@@ -496,14 +510,15 @@
               >
               <select
                 id="notif_per_hour"
+                name="notif_per_hour"
                 required
                 class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select</option>
-                <option>&lt;5 times</option>
-                <option>5–10 times</option>
-                <option>11–20 times</option>
-                <option>&gt;20 times</option>
+                <option value="<5 times">&lt;5 times</option>
+                <option value="5–10 times">5–10 times</option>
+                <option value="11–20 times">11–20 times</option>
+                <option value=">20 times">&gt;20 times</option>
               </select>
             </div>
 
@@ -514,15 +529,16 @@
               >
               <select
                 id="social_time"
+                name="social_time"
                 required
                 class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select</option>
-                <option>&lt;1h</option>
-                <option>1–2h</option>
-                <option>2–3h</option>
-                <option>3–4h</option>
-                <option>&gt;4h</option>
+                <option value="<1h">&lt;1h</option>
+                <option value="1–2h">1–2h</option>
+                <option value="2–3h">2–3h</option>
+                <option value="3–4h">3–4h</option>
+                <option value=">4h">&gt;4h</option>
               </select>
             </div>
 
@@ -533,15 +549,16 @@
               >
               <select
                 id="gaming_time"
+                name="gaming_time"
                 required
                 class="w-full border px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="">Select</option>
-                <option>None</option>
-                <option>&lt;30m</option>
-                <option>30–60m</option>
-                <option>1–2h</option>
-                <option>&gt;2h</option>
+                <option value="None">None</option>
+                <option value="<30m">&lt;30m</option>
+                <option value="30–60m">30–60m</option>
+                <option value="1–2h">1–2h</option>
+                <option value=">2h">&gt;2h</option>
               </select>
             </div>
           </div>
@@ -552,16 +569,37 @@
               >Platforms used regularly</label
             >
             <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-              <label><input type="checkbox" value="YouTube" /> YouTube</label>
-              <label><input type="checkbox" value="TikTok" /> TikTok</label>
               <label
-                ><input type="checkbox" value="Instagram" /> Instagram</label
+                ><input type="checkbox" name="platforms" value="YouTube" />
+                YouTube</label
               >
-              <label><input type="checkbox" value="Facebook" /> Facebook</label>
-              <label><input type="checkbox" value="WhatsApp" /> WhatsApp</label>
-              <label><input type="checkbox" value="X/Twitter" /> X </label>
-              <label><input type="checkbox" value="Snapchat" /> Snapchat</label>
-              <label><input type="checkbox" value="Gaming" /> Gaming</label>
+              <label
+                ><input type="checkbox" name="platforms" value="TikTok" />
+                TikTok</label
+              >
+              <label
+                ><input type="checkbox" name="platforms" value="Instagram" />
+                Instagram</label
+              >
+              <label
+                ><input type="checkbox" name="platforms" value="Facebook" />
+                Facebook</label
+              >
+              <label
+                ><input type="checkbox" name="platforms" value="WhatsApp" />
+                WhatsApp</label
+              >
+              <label
+                ><input type="checkbox" name="platforms" value="X" /> X</label
+              >
+              <label
+                ><input type="checkbox" name="platforms" value="Snapchat" />
+                Snapchat</label
+              >
+              <label
+                ><input type="checkbox" name="platforms" value="Gaming" />
+                Gaming</label
+              >
             </div>
           </div>
         </section>
@@ -693,19 +731,23 @@
 
           const formData = new FormData(e.target);
 
-          // Build JSON object with proper values and default fallbacks
+          // Build JSON object with DA1–DA8 as integers
           const data = {
             institute: formData.get("institute") || "",
             age: formData.get("age") || "",
             gender: formData.get("gender") || "Male", // default to Male
-            da1: formData.get("da1") || "1",
-            da2: formData.get("da2") || "1",
-            da3: formData.get("da3") || "1",
-            da4: formData.get("da4") || "1",
-            da5: formData.get("da5") || "1",
-            da6: formData.get("da6") || "1",
-            da7: formData.get("da7") || "1",
-            da8: formData.get("da8") || "1",
+
+            // Digital Addiction Compulsive Behaviours
+            da1: parseInt(formData.get("da1") || "1"),
+            da2: parseInt(formData.get("da2") || "1"),
+            da3: parseInt(formData.get("da3") || "1"),
+            da4: parseInt(formData.get("da4") || "1"),
+            da5: parseInt(formData.get("da5") || "1"),
+            da6: parseInt(formData.get("da6") || "1"),
+            da7: parseInt(formData.get("da7") || "1"),
+            da8: parseInt(formData.get("da8") || "1"),
+
+            // Digital Addiction multiple-choice fields
             primary_device: formData.get("primary_device") || "Smartphone",
             own_smartphone: formData.get("own_smartphone") || "Yes",
             mobile_data: formData.get("mobile_data") || "Always",
@@ -715,7 +757,12 @@
             notif_per_hour: formData.get("notif_per_hour") || "<5 times",
             social_time: formData.get("social_time") || "<1h",
             gaming_time: formData.get("gaming_time") || "None",
-            platforms: formData.getAll("platforms") || [],
+
+            // Platforms (checkboxes)
+            platforms: Array.from(
+              e.target.querySelectorAll('input[name="platforms"]:checked'),
+            ).map((cb) => cb.value),
+
             self_rated_da: formData.get("self_rated_da") || "not_at_risk",
           };
 
@@ -732,7 +779,6 @@
             const result = await response.json();
 
             if (response.ok) {
-              // Redirect to result page with assessment id
               window.location.href = `/students/assessment_result/${result.id}/`;
             } else {
               alert("Error: " + JSON.stringify(result));

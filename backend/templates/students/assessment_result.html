@@ -1,0 +1,38 @@
+<h2>Assessment Result</h2>
+
+<div id="resultContainer">Loading...</div>
+
+<script>
+  const assessmentId = {{ assessment.id }};
+  const container = document.getElementById("resultContainer");
+
+  async function fetchResult() {
+    try {
+      const response = await fetch(`/api/assessment/${assessmentId}/`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch assessment result");
+      }
+
+      const data = await response.json();
+
+      container.innerHTML = `
+        <p><strong>Predicted Risk:</strong> ${data.predicted_risk}</p>
+        <p><strong>Confidence:</strong> ${data.risk_confidence}</p>
+      `;
+    } catch (error) {
+      console.error(error);
+      container.innerHTML = `
+        <p style="color:red;">
+          Unable to load assessment result.
+        </p>
+      `;
+    }
+  }
+
+  fetchResult();
+</script>

@@ -8,6 +8,7 @@ from assessment.models import DigitalAddictionAssessment
 from assessment.api.serializers import DigitalAddictionAssessmentSerializer as AssessmentSerializer
 
 from ml.predictor import predict_risk_with_confidence
+from ml.preprocessing import preprocess_assessment
 
 
 class PredictAssessmentView(APIView):
@@ -21,17 +22,21 @@ class PredictAssessmentView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, format=None):
-        # Debug incoming data
         print("Incoming data:", request.data)
 
         serializer = AssessmentSerializer(data=request.data, context={"request": request})
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        if serializer.is_valid():
-            # Save instance with the logged-in user as student
-            instance = serializer.save(student=request.user)
+        # Save instance with the logged-in user as student
+        instance = serializer.save(student=request.user)
+
+        try:
+            # Preprocess for ML
+            df, _ = preprocess_assessment(instance)
 
             # Run prediction
-            risk_label, confidence = predict_risk_with_confidence(instance)
+            risk_label, confidence = predict_risk_with_confidence(instance, df=df)
 
             # Save prediction to DB
             instance.predicted_risk = risk_label
@@ -44,7 +49,13 @@ class PredictAssessmentView(APIView):
                 "confidence": confidence
             }, status=status.HTTP_200_OK)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            # Debug log
+            print("Prediction error:", e)
+            return Response({
+                "detail": "Prediction failed.",
+                "error": str(e)
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class DigitalAddictionAssessmentDetailAPI(RetrieveAPIView):
@@ -57,17 +68,12 @@ class DigitalAddictionAssessmentDetailAPI(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        """
-        Optionally, restrict retrieval to the logged-in user's assessments
-        """
         instance = self.get_object()
 
-        # Optionally enforce that only the student or staff can view
         if instance.student != request.user and not request.user.is_staff:
             return Response({"detail": "Not allowed."}, status=status.HTTP_403_FORBIDDEN)
 
         data = self.serializer_class(instance).data
-        # Include prediction info
         data["predicted_risk"] = instance.predicted_risk
         data["risk_confidence"] = instance.risk_confidence
 

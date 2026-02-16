@@ -1,7 +1,7 @@
-from django.urls import include, path
-from .views import PredictAssessmentView
+from django.urls import path
+from assessment.api.views import PredictAssessmentView, DigitalAddictionAssessmentDetailAPI
 
 urlpatterns = [
-    path('predict/', PredictAssessmentView.as_view(), name='predict-assessment'),
-    path('assessment/', include('assessment.urls')),
+    path("predict/", PredictAssessmentView.as_view(), name="predict-assessment"),
+    path("<int:pk>/", DigitalAddictionAssessmentDetailAPI.as_view(), name="assessment-detail"),
 ]
