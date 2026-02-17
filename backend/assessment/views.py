@@ -13,6 +13,13 @@ from ml.preprocessing import preprocess_assessment
 
 import plotly.graph_objects as go
 from plotly.offline import plot
+import plotly.graph_objects as go
+from plotly.offline import plot
+from collections import Counter
+
+import plotly.graph_objects as go
+from plotly.offline import plot
+from collections import Counter
 
 
 @login_required
@@ -126,6 +133,161 @@ def generate_das_by_age_chart_interactive(assessments):
     chart_div = plot(fig, output_type='div', include_plotlyjs=False)
     return chart_div
 
+# Mapping numeric values to labels
+night_map = {
+    "Never": 0,
+    "<30m": 0.25,
+    "30–60m": 0.75,
+    "1–2h": 1.5,
+    ">2h": 3
+}
+
+# Reverse mapping for dynamic chart
+reverse_night_map = {v: k for k, v in night_map.items()}
+
+def create_late_night_pie_chart(assessments):
+    """
+    Create a dynamic pie chart for Night-time Phone Usage.
+    Maps numeric preprocessed values back to original labels.
+    """
+    # Fixed label order and colors
+    labels = ["Never", "<30m", "30–60m", "1–2h", ">2h"]
+    colors = ["#1f77b4", "#d62728", "#ff7f0e", "#2ca02c", "#9467bd"]
+
+    # Collect raw numeric values from assessments
+    raw_values = []
+    for assessment in assessments:
+        numeric_features, _ = preprocess_assessment(assessment, fit=False)
+        night_use_value = numeric_features.get("night_phone_use", 0)
+        if hasattr(night_use_value, 'iloc'):
+            night_use_value = night_use_value.iloc[0]
+
+        raw_values.append(night_use_value)
+
+    # Map numeric values back to labels
+    mapped_labels = [reverse_night_map.get(val, "Never") for val in raw_values]
+
+    # Count occurrences for each label
+    count_data = Counter(mapped_labels)
+    values = [count_data.get(label, 0) for label in labels]
+
+    # Handle empty dataset
+    total_responses = sum(values)
+    if total_responses == 0:
+        values = [1] + [0]*(len(labels)-1)
+
+    # Create pie chart
+    pie_fig = go.Figure(go.Pie(
+        labels=labels,
+        values=values,
+        hole=0.3,
+        sort=False,
+        marker=dict(colors=colors),
+        textinfo='label+percent',
+        insidetextorientation='radial',
+        hoverinfo='label+percent+value'
+    ))
+
+    pie_fig.update_layout(
+        title=f"Night-time phone use after lights-off<br>{total_responses} responses"
+    )
+
+    # Convert to HTML div
+    pie_div = plot(pie_fig, output_type='div', include_plotlyjs=True)
+    return pie_div
+
+
+from collections import Counter
+import plotly.graph_objects as go
+from plotly.offline import plot
+import pandas as pd
+
+# Numeric-to-label mapping
+night_map = {
+    "Never": 0,
+    "<30m": 0.25,
+    "30–60m": 0.75,
+    "1–2h": 1.5,
+    ">2h": 3
+}
+reverse_night_map = {v: k for k, v in night_map.items()}
+
+# Custom age groups
+age_groups = {
+    "15-20": (15, 20),
+    "21-25": (21, 25),
+    "26-30": (26, 30),
+    "31-35": (31, 35),
+    "36-40": (36, 40),
+    "41-45": (41, 45),
+    "46+": (46, 200)  # assuming 200 as max age
+}
+age_group_order = list(age_groups.keys())
+
+def get_age_group(age):
+    for group, (low, high) in age_groups.items():
+        if low <= age <= high:
+            return group
+    return "Unknown"
+
+def create_night_phone_by_age_percentage_bar_chart(assessments):
+    """
+    Creates a stacked bar chart showing percentage distribution of night-time phone use
+    across custom age groups (15-20, 21-25, …, 46+).
+    """
+    # Collect data
+    data = []
+    for assessment in assessments:
+        numeric_features, _ = preprocess_assessment(assessment, fit=False)
+        night_use_value = numeric_features.get("night_phone_use", 0)
+        age = getattr(assessment, "age", None)
+        
+        if hasattr(night_use_value, 'iloc'):
+            night_use_value = night_use_value.iloc[0]
+        if hasattr(age, 'iloc'):
+            age = age.iloc[0]
+        
+        night_label = reverse_night_map.get(night_use_value, "Never")
+        age_group = get_age_group(age) if age is not None else "Unknown"
+        data.append({"age_group": age_group, "night_use": night_label})
+    
+    df = pd.DataFrame(data)
+
+    # Aggregate counts
+    grouped_counts = df.groupby(["age_group", "night_use"]).size().unstack(fill_value=0)
+    grouped_counts = grouped_counts.reindex(columns=list(night_map.keys()), fill_value=0)
+    grouped_counts = grouped_counts.reindex(index=age_group_order, fill_value=0)
+
+    # Convert counts to percentages
+    percentages = grouped_counts.div(grouped_counts.sum(axis=1), axis=0) * 100
+
+    # Create stacked bar chart
+    colors = ["#1f77b4", "#d62728", "#ff7f0e", "#2ca02c", "#9467bd"]
+    fig = go.Figure()
+    for i, night_label in enumerate(night_map.keys()):
+        fig.add_trace(go.Bar(
+            x=percentages.index,
+            y=percentages[night_label],
+            name=night_label,
+            marker_color=colors[i],
+            text=percentages[night_label].round(1).astype(str) + '%',
+            textposition='inside'
+        ))
+
+    fig.update_layout(
+        barmode='stack',
+        title="Night-time Phone Use by Age Group (Percentage)",
+        xaxis_title="Age Group",
+        yaxis_title="Percentage of Responses",
+        legend_title="Night Phone Use",
+        template="plotly_white"
+    )
+
+    # Convert to HTML div for Django
+    bar_div = plot(fig, output_type='div', include_plotlyjs=True)
+    return bar_div
+
+
 
 @login_required
 def insights_view(request):
@@ -151,17 +313,22 @@ def insights_view(request):
     avg_gaming_time = round(np.mean(gaming_time_list), 0) if gaming_time_list else 0
     avg_social_media_time = round(np.mean(social_media_list), 0) if social_media_list else 0
 
-    # # Generate DAS chart for all assessments
-    # das_chart_url = generate_das_by_age_chart_interactive(assessments)
-
     context = {
         "total_assessments": total_assessments,
         "avg_screen_weekdays": avg_screen_weekdays,
         "avg_screen_weekends": avg_screen_weekends,
         "avg_gaming_time": avg_gaming_time,
         "avg_social_media_time": avg_social_media_time,
-        # Interactive chart div
+
+        # Interactive chart div for DAS by age
         "das_chart_div": generate_das_by_age_chart_interactive(assessments),
+
+         # Interactive pie chart for late night phone usage
+        "pie_div": create_late_night_pie_chart(assessments),
+
+        # Interactive bar chart for late night phone usage
+        "bar_div": create_night_phone_by_age_percentage_bar_chart(assessments)
+
     }
 
     return render(request, "admin/insights.html", context)
