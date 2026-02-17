@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
 from assessment.views import assessment_result_page
+# from backend.daras import settings
 
 def root_redirect(request):
     return redirect('login')
@@ -21,4 +22,6 @@ urlpatterns = [
     # Result page
     path('students/assessment_result/<int:pk>/', assessment_result_page, name='assessment-result-page'),
 ]
+
+
 
