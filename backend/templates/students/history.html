@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Assessment History | Digital Addiction Risk Assessment System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+<!-- ================= HEADER & NAVIGATION ================= -->
+<header class="sticky top-0 z-50 bg-white border-b shadow-sm">
+    <div class="max-w-6xl mx-auto px-6">
+
+        <!-- Top Row -->
+        <div class="flex items-center justify-between h-16">
+
+            <!-- Title -->
+            <div class="flex flex-col leading-tight">
+                <a href="{% url 'student_dashboard' %}" class="text-lg font-semibold text-gray-900">
+                    Digital Addiction Risk Assessment System
+                </a>
+                <span class="text-xs text-gray-500">
+                    Kageshwori–Manohara Municipality
+                </span>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-700">
+                <a href="{% url 'use_model' %}" class="hover:text-blue-600 transition">
+                    Use Model
+                </a>
+                <a href="{% url 'about' %}" class="hover:text-blue-600 transition">
+                    About This Project
+                </a>
+                <a href="{% url 'logout' %}" class="text-red-600 hover:text-red-700 transition">
+                    Logout
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden border-t">
+            <nav class="py-4 space-y-3 text-sm text-gray-700">
+                <a href="{% url 'use_model' %}" class="block hover:text-blue-600">
+                    Use Model
+                </a>
+                <a href="{% url 'about' %}" class="block hover:text-blue-600">
+                    About This Project
+                </a>
+                <a href="{% url 'logout' %}" class="block text-red-600 hover:text-red-700">
+                    Logout
+                </a>
+            </nav>
+        </div>
+
+    </div>
+</header>
+
+<!-- Mobile Menu Script -->
+<script>
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+    });
+</script>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main class="max-w-5xl mx-auto px-6 py-10 space-y-8">
+
+    <!-- Page Header -->
+    <section class="border-b pb-6">
+        <h1 class="text-3xl font-bold text-gray-900">
+            Assessment History
+        </h1>
+        <p class="mt-2 text-lg text-gray-600">
+            Review your past digital addiction risk predictions.
+        </p>
+    </section>
+
+    <!-- Assessment History Card -->
+    <section class="bg-white rounded-xl shadow-sm p-6">
+
+        {% if assessments %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full border border-gray-200 rounded-lg">
+                    <thead class="bg-gray-100 text-sm text-gray-700">
+                        <tr>
+                            <th class="px-4 py-3 text-left">Date</th>
+                            <th class="px-4 py-3 text-left">Predicted Risk</th>
+                            <th class="px-4 py-3 text-left">Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        {% for assessment in assessments %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 text-sm">
+                                {{ assessment.created_at|date:"Y-m-d H:i" }}
+                            </td>
+
+                            <td class="px-4 py-3">
+                                <span class="px-3 py-1 text-xs font-semibold rounded-full">
+                                    {{ assessment.predicted_risk }}
+                                </span>
+                            </td>
+
+                            <td class="px-4 py-3 text-sm font-medium">
+                                {{ assessment.risk_confidence }}%
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <!-- Empty State -->
+            <div class="text-center py-12">
+                <p class="text-lg text-gray-600">
+                    You haven’t taken any assessments yet.
+                </p>
+                <a href="{% url 'use_model' %}"
+                   class="inline-block mt-4 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                    Take Your First Assessment
+                </a>
+            </div>
+        {% endif %}
+
+    </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="border-t bg-white mt-10">
+    <div class="max-w-6xl mx-auto px-6 py-6">
+        <p class="text-sm text-gray-500 text-center">
+            © <span id="year"></span> Kageshwori–Manohara Municipality — Academic & Research Use Only
+        </p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

@@ -91,24 +91,20 @@ def metrics(request):
     return render(request, 'admin/metrics.html', context)
 
 
-# # ================================
-# # STUDENT HISTORY
-# # ================================
-# @login_required
-# def student_history(request):
-#     # Admins should not access student history page
-#     if request.user.is_staff or request.user.is_superuser:
-#         return redirect('admin_dashboard')
+# ================================
+# STUDENT HISTORY
+# ================================
+@login_required
+def assessment_history_view(request):
+    assessments = DigitalAddictionAssessment.objects.filter(
+        student=request.user
+    ).order_by("-created_at")
 
-#     history = DigitalAddictionAssessment.objects.filter(
-#         participant_name=request.user.username
-#     ).order_by('-created_at')
-
-#     return render(
-#         request,
-#         'students/student_history.html',
-#         {'history': history}
-#     )
+    return render(
+        request,
+        "students/history.html",
+        {"assessments": assessments}
+    )
 
 
 

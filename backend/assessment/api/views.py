@@ -1,3 +1,4 @@
+from urllib import request
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
@@ -78,3 +79,16 @@ class DigitalAddictionAssessmentDetailAPI(RetrieveAPIView):
         data["risk_confidence"] = instance.risk_confidence
 
         return Response(data, status=status.HTTP_200_OK)
+    
+from .serializers import AssessmentHistorySerializer
+from rest_framework.generics import ListAPIView
+
+
+class AssessmentHistoryAPIView(ListAPIView):
+    serializer_class = AssessmentHistorySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return DigitalAddictionAssessment.objects.filter(
+            student=request.user
+        )

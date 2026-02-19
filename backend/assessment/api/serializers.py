@@ -28,6 +28,8 @@ class DigitalAddictionAssessmentSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["predicted_risk", "risk_confidence"]
 
+    
+
     # ------------------------------
     # FIELD VALIDATIONS
     # ------------------------------
@@ -108,3 +110,14 @@ class DigitalAddictionAssessmentSerializer(serializers.ModelSerializer):
         instance = super().create(validated_data)
 
         return instance
+    
+class AssessmentHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DigitalAddictionAssessment
+        fields = [
+            "id",
+            "student",
+            "predicted_risk",
+            "risk_confidence",
+            "created_at",
+        ]
