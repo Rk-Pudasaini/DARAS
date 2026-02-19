@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
-from assessment.models import DigitalAddictionAssessment 
+from assessment.models import DigitalAddictionAssessment
+from assessment.views import create_late_night_pie_chart, create_night_phone_by_age_percentage_bar_chart, create_platform_bar_chart, generate_das_by_age_chart_interactive
+from ml.preprocessing import preprocess_assessment 
+import numpy as np
 
 
 # ================================
@@ -55,17 +58,50 @@ def digital_behaviour_insights(request):
     if not (request.user.is_staff or request.user.is_superuser):
         return redirect('student_dashboard')
 
-    # Example insights data (can be expanded later)
-    total_assessments = DigitalAddictionAssessment.objects.count()
-    high_risk = DigitalAddictionAssessment.objects.filter(predicted_risk='High').count()
-    medium_risk = DigitalAddictionAssessment.objects.filter(predicted_risk='Medium').count()
-    low_risk = DigitalAddictionAssessment.objects.filter(predicted_risk='Low').count()
+    # Fetch all assessments
+    assessments = DigitalAddictionAssessment.objects.all()
+    total_assessments = assessments.count()
+
+    screen_weekdays_list = []
+    screen_weekends_list = []
+    gaming_time_list = []
+    social_media_list = []
+
+    for assessment in assessments:
+        numeric_features, _ = preprocess_assessment(assessment, fit=False)
+        screen_weekdays_list.append(numeric_features.get("screen_time_weekdays", 0))
+        screen_weekends_list.append(numeric_features.get("screen_time_weekends", 0))
+        gaming_time_list.append(numeric_features.get("gaming_time", 0))           # in hours
+        social_media_list.append(numeric_features.get("social_media_time", 0))     # in hours
+
+    # Compute averages safely
+    avg_screen_weekdays = round(np.mean(screen_weekdays_list), 1) if screen_weekdays_list else 0
+    avg_screen_weekends = round(np.mean(screen_weekends_list), 1) if screen_weekends_list else 0
+    avg_gaming_time_hours = round(np.mean(gaming_time_list), 2) if gaming_time_list else 0
+    avg_social_media_time_hours = round(np.mean(social_media_list), 2) if social_media_list else 0
+
+    # Convert hours to minutes for metric cards
+    avg_gaming_time_mins = round(avg_gaming_time_hours * 60, 1)
+    avg_social_media_time_mins = round(avg_social_media_time_hours * 60, 1)
 
     context = {
-        'total_assessments': total_assessments,
-        'high_risk': high_risk,
-        'medium_risk': medium_risk,
-        'low_risk': low_risk,
+        "total_assessments": total_assessments,
+        "avg_screen_weekdays": avg_screen_weekdays,
+        "avg_screen_weekends": avg_screen_weekends,
+        "avg_gaming_time": avg_gaming_time_mins,        # now in minutes
+        "avg_social_media_time": avg_social_media_time_mins,  # now in minutes
+
+        # Interactive chart div for DAS by age
+        "das_chart_div": generate_das_by_age_chart_interactive(assessments),
+
+        # Interactive pie chart for late night phone usage
+        "pie_div": create_late_night_pie_chart(assessments),
+
+        # Interactive bar chart for late night phone usage
+        "bar_div": create_night_phone_by_age_percentage_bar_chart(assessments),
+
+        # Bar chart for platform usage
+        "platform_bar_div": create_platform_bar_chart(assessments),
     }
 
     return render(request, 'admin/insights.html', context)
@@ -105,6 +141,25 @@ def assessment_history_view(request):
         "students/history.html",
         {"assessments": assessments}
     )
+
+@login_required
+def assessment_detail_view(request, id):
+    assessment = get_object_or_404(
+        DigitalAddictionAssessment,
+        id=id,
+        student=request.user   # IMPORTANT: ownership check
+    )
+
+    # Compute DAS weighted average
+    da_values = [assessment.da1, assessment.da2, assessment.da3, assessment.da4,
+                 assessment.da5, assessment.da6, assessment.da7, assessment.da8]
+    das_score = sum(da_values) / len(da_values)  # average
+    das_score_normalized = (das_score / 5) * 100  # assuming DA1–DA8 are 0–5 Likert scale
+
+    return render(request, 'students/details.html', {
+        'assessment': assessment,
+        'das_score': round(das_score_normalized, 2),
+    })
 
 
 

@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from assessment.views import assessment_result_page
 from django.conf.urls.static import static
 
-from dashboards.views import assessment_history_view
+from dashboards.views import assessment_detail_view, assessment_history_view
 
 # from backend.daras import settings
 
@@ -29,6 +29,9 @@ urlpatterns = [
 
     # Assessment history page
     path("assessments/history/", assessment_history_view, name="assessment-history"),
+
+    # Assessment detail page
+    path("students/assessments/<int:id>/", assessment_detail_view, name="assessment-detail"),
 
 ]
 if settings.DEBUG:

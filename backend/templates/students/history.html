@@ -106,7 +106,9 @@
                     </thead>
                     <tbody class="divide-y">
                         {% for assessment in assessments %}
-                        <tr class="hover:bg-gray-50">
+                        <tr onclick="window.location='{% url 'assessment-detail' assessment.id %}'"
+                            class="hover:bg-gray-100 cursor-pointer transition-colors duration-200">
+
                             <td class="px-4 py-3 text-sm">
                                 {{ assessment.created_at|date:"Y-m-d H:i" }}
                             </td>

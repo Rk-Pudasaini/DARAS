@@ -3,7 +3,8 @@ from assessment.api.views import (
     PredictAssessmentView,
     DigitalAddictionAssessmentDetailAPI,
 )
-from assessment.views import assessment_result_page, insights_view
+from assessment.views import assessment_result_page
+from dashboards.views import digital_behaviour_insights
 
 urlpatterns = [
     path("predict/", PredictAssessmentView.as_view(), name="predict-assessment"),
@@ -15,8 +16,7 @@ urlpatterns = [
 
 
     path("students/assessment_result/<int:pk>/", assessment_result_page, name="assessment-result-page"),
-
-    path('insights/', insights_view, name='insights'),
+    path('admin/insights/', digital_behaviour_insights, name='admin-insights'),
 ]
 
 
