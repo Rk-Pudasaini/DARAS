@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>{% block title %}Digital Addiction Risk Assessment{% endblock %}</title>
+<title>Model Metrics | Digital Addiction Risk Assessment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Tailwind -->
@@ -39,7 +39,8 @@
       <!-- Mobile Menu Button -->
       <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
 
@@ -60,52 +61,89 @@
   </div>
 </header>
 
-<!-- HERO SECTION -->
-<section class="relative bg-cover bg-center h-screen" style="background-image: url('https://images.unsplash.com/photo-1581091012184-7f46d1c60c30?auto=format&fit=crop&w=1950&q=80');">
+<!-- HERO -->
+<section class="relative bg-cover bg-center h-screen"
+style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1950&q=80');">
+
   <div class="absolute inset-0 bg-gradient-to-r from-indigo-800/70 via-purple-700/60 to-pink-600/70"></div>
+
   <div class="relative max-w-7xl mx-auto px-6 h-full flex flex-col justify-center text-center text-white">
-    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">{% block hero_title %}Digital Addiction Risk Assessment System{% endblock %}</h1>
-    <p class="text-lg md:text-2xl mb-8 drop-shadow">{% block hero_subtitle %}Early Warning System to Identify Students’ Digital Addiction Risk{% endblock %}</p>
-    <a href="{% url 'login' %}" class="bg-white text-indigo-800 font-semibold py-3 rounded-lg shadow-lg hover:bg-gray-100 transition w-full max-w-md mx-auto block text-center">
-      Get Started
+
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
+      Model Evaluation Metrics
+    </h1>
+
+    <p class="text-lg md:text-2xl mb-8 drop-shadow">
+      Understanding the Performance and Accuracy of the Prediction Model
+    </p>
+
+    <a href="{% url 'login' %}"
+       class="bg-white text-indigo-800 font-semibold py-3 rounded-lg shadow-lg hover:bg-gray-100 transition w-full max-w-md mx-auto block text-center">
+      View Dashboard
     </a>
+
   </div>
 </section>
 
 <!-- MAIN CONTENT -->
 <main class="max-w-7xl mx-auto px-6 py-16 space-y-16">
-  {% block content %}
-  <!-- Features Section -->
-  <section class="grid md:grid-cols-3 gap-8">
-    <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition text-center">
-      <h3 class="text-xl font-semibold mb-3 text-indigo-800">Dashboard Preview</h3>
-      <p class="text-gray-700">Access analytics dashboards, prediction model, and student risk assessments.</p>
-    </div>
 
-    <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl shadow-lg p-8 hover:shadow-xl transition text-center">
-      <h3 class="text-xl font-semibold mb-3 text-purple-800">Digital Usage Insights</h3>
-      <p class="text-gray-700">Analyze digital behaviour patterns to identify addiction risk levels among students.</p>
-    </div>
+<!-- Metrics Cards -->
+<section class="grid md:grid-cols-4 gap-8">
 
-    <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition text-center">
-      <h3 class="text-xl font-semibold mb-3 text-indigo-800">Research Purpose</h3>
-      <p class="text-gray-700">Platform developed for academic research to support early detection of digital addiction.</p>
-    </div>
-  </section>
+  <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+    <h3 class="text-lg font-semibold text-indigo-700 mb-2">Accuracy</h3>
+    <p class="text-gray-600">
+      Measures the overall correctness of the model’s predictions.
+    </p>
+  </div>
 
-  <!-- About Section -->
-  <section class="flex flex-col md:flex-row items-center gap-8 bg-indigo-50 rounded-2xl shadow-lg p-12">
-    <div class="md:w-1/2">
-      <h2 class="text-3xl font-bold mb-4 text-indigo-900">About This Project</h2>
-      <p class="text-gray-700 text-lg">
-        This system uses data-driven analytics to provide actionable insights on student digital behaviour. Designed for schools and municipalities to monitor and mitigate digital addiction risks.
-      </p>
-    </div>
-    <div class="md:w-1/2">
-      <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80" alt="Digital Insights" class="rounded-xl shadow-lg">
-    </div>
-  </section>
-  {% endblock %}
+  <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+    <h3 class="text-lg font-semibold text-indigo-700 mb-2">Precision</h3>
+    <p class="text-gray-600">
+      Indicates how many predicted risk cases were actually correct.
+    </p>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+    <h3 class="text-lg font-semibold text-indigo-700 mb-2">Recall</h3>
+    <p class="text-gray-600">
+      Shows how effectively the model identifies students at risk.
+    </p>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+    <h3 class="text-lg font-semibold text-indigo-700 mb-2">F1 Score</h3>
+    <p class="text-gray-600">
+      Harmonic mean of precision and recall for balanced evaluation.
+    </p>
+  </div>
+
+</section>
+
+<!-- Model Performance Section -->
+<section class="flex flex-col md:flex-row items-center gap-8 bg-indigo-50 rounded-2xl shadow-lg p-12">
+
+  <div class="md:w-1/2">
+    <h2 class="text-3xl font-bold mb-4 text-indigo-900">
+      Why Model Evaluation Matters
+    </h2>
+
+    <p class="text-gray-700 text-lg">
+      Evaluating the performance of the prediction model ensures that the system
+      accurately identifies students at risk of digital addiction.
+      Reliable evaluation metrics help validate the effectiveness of the
+      machine learning algorithms used in the Digital Addiction Risk Assessment System.
+    </p>
+  </div>
+
+  <div class="md:w-1/2">
+    <img src="https://images.unsplash.com/photo-1551281044-8c8c1d2f6c2f?auto=format&fit=crop&w=900&q=80"
+         class="rounded-xl shadow-lg">
+  </div>
+
+</section>
+
 </main>
 
 <!-- FOOTER -->
@@ -118,15 +156,16 @@
 </footer>
 
 <script>
-  // Current year
-  document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Mobile menu toggle
-  const menuBtn = document.getElementById("menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
-  menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-  });
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const menuBtn = document.getElementById("menu-btn");
+const mobileMenu = document.getElementById("mobile-menu");
+
+menuBtn.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
+});
+
 </script>
 
 </body>

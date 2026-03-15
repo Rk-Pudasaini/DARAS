@@ -5,21 +5,19 @@ from django.shortcuts import redirect
 from assessment.views import assessment_result_page
 from django.conf.urls.static import static
 
-
 from accounts import views
+
 from dashboards.views import assessment_detail_view, assessment_history_view
 
-# from backend.daras import settings
-
-# def root_redirect(request):
-#     return redirect('index')
 
 urlpatterns = [
 
-   # ROOT URL
-   path('', views.index, name="index"),
+    # ROOT URL
+    path('', views.index, name="index"),
 
-    #path('', root_redirect, name='root'),
+    # Frontend pages (use directly at root)
+    path('', include('frontend.urls')), 
+
     path('admin/', admin.site.urls),
     path('auth/', include('accounts.urls')),
     path('dashboards/', include('dashboards.urls')),

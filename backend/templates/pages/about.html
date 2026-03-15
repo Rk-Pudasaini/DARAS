@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About This Project | Digital Addiction Risk Assessment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b shadow-md">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <div class="flex flex-col leading-tight">
+        <a href="/" class="text-2xl font-bold text-indigo-900">
+          Digital Addiction Risk Assessment System
+        </a>
+        <span class="text-sm text-gray-500">
+          Kageshwori–Manohara Municipality
+        </span>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-700">
+        <a href="/use-model" class="transition {% if request.path == '/use-model/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">Use Model</a>
+        <a href="/digital-usage" class="transition {% if request.path == '/digital-usage/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">Digital Usage Behaviours</a>
+        <a href="/risk-category" class="transition {% if request.path == '/risk-category/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">Risk Category</a>
+        <a href="/metrics" class="transition {% if request.path == '/metrics/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">Metrics</a>
+        <a href="/about" class="transition {% if request.path == '/about/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">About This Project</a>
+        <a href="{% url 'login' %}" class="bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 transition">Login</a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t mt-2">
+      <nav class="py-4 space-y-3 text-sm text-gray-700">
+        <a href="/use-model" class="block transition {% if request.path == '/use-model/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">Use Model</a>
+        <a href="/digital-usage" class="block transition {% if request.path == '/digital-usage/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">Digital Usage Behaviours</a>
+        <a href="/risk-category" class="block transition {% if request.path == '/risk-category/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">Risk Category</a>
+        <a href="/metrics" class="block transition {% if request.path == '/metrics/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">Metrics</a>
+        <a href="/about" class="block transition {% if request.path == '/about/' %}text-indigo-600 font-semibold{% else %}hover:text-indigo-600{% endif %}">About This Project</a>
+        <a href="{% url 'login' %}" class="block text-indigo-600 font-semibold">Login</a>
+      </nav>
+    </div>
+
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative bg-cover bg-center h-screen"
+style="background-image: url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1950&q=80');">
+
+  <div class="absolute inset-0 bg-gradient-to-r from-indigo-800/70 via-purple-700/60 to-pink-600/70"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 h-full flex flex-col justify-center text-center text-white">
+
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
+      About This Research Project
+    </h1>
+
+    <p class="text-lg md:text-2xl mb-8 drop-shadow">
+      Data-Driven System for Early Detection of Digital Addiction Risk Among Students
+    </p>
+
+    <a href="{% url 'login' %}"
+       class="bg-white text-indigo-800 font-semibold py-3 rounded-lg shadow-lg hover:bg-gray-100 transition w-full max-w-md mx-auto block text-center">
+      Access the System
+    </a>
+
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main class="max-w-7xl mx-auto px-6 py-16 space-y-16">
+
+<!-- Project Overview -->
+<section class="bg-white rounded-2xl shadow-lg p-12">
+  <h2 class="text-3xl font-bold mb-6 text-indigo-900">Project Overview</h2>
+
+  <p class="text-lg text-gray-700 leading-relaxed">
+    The Digital Addiction Risk Assessment System is a research-based platform
+    developed to identify potential digital addiction risks among students.
+    With the rapid increase in smartphone and internet usage,
+    excessive digital engagement has become a major concern affecting
+    students’ mental health, sleep quality, academic performance, and social behavior.
+  </p>
+
+  <p class="text-lg text-gray-700 mt-4 leading-relaxed">
+    This system leverages data analytics and machine learning techniques
+    to analyze student digital behavior patterns and classify risk levels.
+    The platform provides insights that help educators, schools,
+    and policymakers design early intervention strategies.
+  </p>
+</section>
+
+<!-- Research Components -->
+<section class="grid md:grid-cols-3 gap-8">
+
+  <div class="bg-indigo-50 rounded-xl shadow-lg p-8 text-center">
+    <h3 class="text-xl font-semibold text-indigo-800 mb-3">Data Collection</h3>
+    <p class="text-gray-700">
+      Survey-based data collected from students to capture digital usage
+      behaviors, sleep quality indicators, and well-being metrics.
+    </p>
+  </div>
+
+  <div class="bg-purple-50 rounded-xl shadow-lg p-8 text-center">
+    <h3 class="text-xl font-semibold text-purple-800 mb-3">Machine Learning</h3>
+    <p class="text-gray-700">
+      Predictive models analyze digital behavior variables to identify
+      potential addiction risk levels among students.
+    </p>
+  </div>
+
+  <div class="bg-pink-50 rounded-xl shadow-lg p-8 text-center">
+    <h3 class="text-xl font-semibold text-pink-800 mb-3">Decision Support</h3>
+    <p class="text-gray-700">
+      The system provides evidence-based insights to support educators
+      and policymakers in promoting healthier digital habits.
+    </p>
+  </div>
+
+</section>
+
+<!-- Research Impact -->
+<section class="flex flex-col md:flex-row items-center gap-8 bg-indigo-50 rounded-2xl shadow-lg p-12">
+
+  <div class="md:w-1/2">
+    <h2 class="text-3xl font-bold mb-4 text-indigo-900">
+      Expected Impact
+    </h2>
+
+    <p class="text-gray-700 text-lg">
+      By identifying students at risk of digital addiction early,
+      the system enables schools and local governments to implement
+      targeted awareness programs, counseling support,
+      and responsible technology usage policies.
+    </p>
+
+    <p class="text-gray-700 text-lg mt-4">
+      Ultimately, the goal of this research is to contribute to
+      healthier digital lifestyles and improved student well-being
+      in the digital era.
+    </p>
+  </div>
+
+  <div class="md:w-1/2">
+    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80"
+         class="rounded-xl shadow-lg">
+  </div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t bg-white mt-12">
+  <div class="max-w-7xl mx-auto px-6 py-6 text-center">
+    <p class="text-sm text-gray-500">
+      © <span id="year"></span> Kageshwori–Manohara Municipality | For Academic & Research Use Only
+    </p>
+  </div>
+</footer>
+
+<script>
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const menuBtn = document.getElementById("menu-btn");
+const mobileMenu = document.getElementById("mobile-menu");
+
+menuBtn.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
+});
+
+</script>
+
+</body>
+</html>

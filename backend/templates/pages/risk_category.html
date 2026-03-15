@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>{% block title %}Digital Addiction Risk Assessment{% endblock %}</title>
+<title>Risk Category | Digital Addiction Risk Assessment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Tailwind -->
@@ -39,7 +39,8 @@
       <!-- Mobile Menu Button -->
       <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
 
@@ -60,52 +61,86 @@
   </div>
 </header>
 
-<!-- HERO SECTION -->
-<section class="relative bg-cover bg-center h-screen" style="background-image: url('https://images.unsplash.com/photo-1581091012184-7f46d1c60c30?auto=format&fit=crop&w=1950&q=80');">
+<!-- HERO -->
+<section class="relative bg-cover bg-center h-screen"
+style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1950&q=80');">
+
   <div class="absolute inset-0 bg-gradient-to-r from-indigo-800/70 via-purple-700/60 to-pink-600/70"></div>
+
   <div class="relative max-w-7xl mx-auto px-6 h-full flex flex-col justify-center text-center text-white">
-    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">{% block hero_title %}Digital Addiction Risk Assessment System{% endblock %}</h1>
-    <p class="text-lg md:text-2xl mb-8 drop-shadow">{% block hero_subtitle %}Early Warning System to Identify Students’ Digital Addiction Risk{% endblock %}</p>
-    <a href="{% url 'login' %}" class="bg-white text-indigo-800 font-semibold py-3 rounded-lg shadow-lg hover:bg-gray-100 transition w-full max-w-md mx-auto block text-center">
-      Get Started
+
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
+      Digital Addiction Risk Categories
+    </h1>
+
+    <p class="text-lg md:text-2xl mb-8 drop-shadow">
+      Understanding Different Levels of Digital Addiction Risk Among Students
+    </p>
+
+    <a href="{% url 'login' %}"
+       class="bg-white text-indigo-800 font-semibold py-3 rounded-lg shadow-lg hover:bg-gray-100 transition w-full max-w-md mx-auto block text-center">
+      Run Risk Assessment
     </a>
+
   </div>
 </section>
 
 <!-- MAIN CONTENT -->
 <main class="max-w-7xl mx-auto px-6 py-16 space-y-16">
-  {% block content %}
-  <!-- Features Section -->
-  <section class="grid md:grid-cols-3 gap-8">
-    <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition text-center">
-      <h3 class="text-xl font-semibold mb-3 text-indigo-800">Dashboard Preview</h3>
-      <p class="text-gray-700">Access analytics dashboards, prediction model, and student risk assessments.</p>
-    </div>
 
-    <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl shadow-lg p-8 hover:shadow-xl transition text-center">
-      <h3 class="text-xl font-semibold mb-3 text-purple-800">Digital Usage Insights</h3>
-      <p class="text-gray-700">Analyze digital behaviour patterns to identify addiction risk levels among students.</p>
-    </div>
+<!-- Risk Levels -->
+<section class="grid md:grid-cols-3 gap-8">
 
-    <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition text-center">
-      <h3 class="text-xl font-semibold mb-3 text-indigo-800">Research Purpose</h3>
-      <p class="text-gray-700">Platform developed for academic research to support early detection of digital addiction.</p>
-    </div>
-  </section>
+  <div class="bg-green-50 border-l-4 border-green-500 rounded-xl shadow-lg p-8 text-center">
+    <h3 class="text-xl font-bold text-green-700 mb-3">Low Risk</h3>
+    <p class="text-gray-700">
+      Students show healthy digital usage patterns. Their screen time
+      and online behaviors remain balanced with academic and social activities.
+    </p>
+  </div>
 
-  <!-- About Section -->
-  <section class="flex flex-col md:flex-row items-center gap-8 bg-indigo-50 rounded-2xl shadow-lg p-12">
-    <div class="md:w-1/2">
-      <h2 class="text-3xl font-bold mb-4 text-indigo-900">About This Project</h2>
-      <p class="text-gray-700 text-lg">
-        This system uses data-driven analytics to provide actionable insights on student digital behaviour. Designed for schools and municipalities to monitor and mitigate digital addiction risks.
-      </p>
-    </div>
-    <div class="md:w-1/2">
-      <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80" alt="Digital Insights" class="rounded-xl shadow-lg">
-    </div>
-  </section>
-  {% endblock %}
+  <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-xl shadow-lg p-8 text-center">
+    <h3 class="text-xl font-bold text-yellow-700 mb-3">Moderate Risk</h3>
+    <p class="text-gray-700">
+      Students demonstrate signs of increased screen dependency,
+      including longer online sessions and reduced offline activities.
+    </p>
+  </div>
+
+  <div class="bg-red-50 border-l-4 border-red-500 rounded-xl shadow-lg p-8 text-center">
+    <h3 class="text-xl font-bold text-red-700 mb-3">High Risk</h3>
+    <p class="text-gray-700">
+      Students exhibit strong digital addiction symptoms such as
+      excessive screen time, sleep disruption, and reduced academic focus.
+    </p>
+  </div>
+
+</section>
+
+<!-- Risk Interpretation -->
+<section class="flex flex-col md:flex-row items-center gap-8 bg-indigo-50 rounded-2xl shadow-lg p-12">
+
+  <div class="md:w-1/2">
+    <h2 class="text-3xl font-bold mb-4 text-indigo-900">
+      How Risk Levels Are Determined
+    </h2>
+
+    <p class="text-gray-700 text-lg">
+      Risk categories are calculated using data-driven machine learning
+      models based on students' digital behavior patterns, screen time,
+      sleep quality, and psychological indicators.
+      The system helps educators and policymakers identify
+      students who may require early intervention.
+    </p>
+  </div>
+
+  <div class="md:w-1/2">
+    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=900&q=80"
+         class="rounded-xl shadow-lg">
+  </div>
+
+</section>
+
 </main>
 
 <!-- FOOTER -->
@@ -118,15 +153,16 @@
 </footer>
 
 <script>
-  // Current year
-  document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Mobile menu toggle
-  const menuBtn = document.getElementById("menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
-  menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-  });
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const menuBtn = document.getElementById("menu-btn");
+const mobileMenu = document.getElementById("mobile-menu");
+
+menuBtn.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
+});
+
 </script>
 
 </body>
