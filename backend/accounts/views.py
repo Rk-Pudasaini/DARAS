@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+def index(request):
+    return render(request, "index.html")
 
 def login_view(request):
     if request.method == "POST":
@@ -65,6 +67,10 @@ def register_view(request):
     return render(request, 'auth/register.html')
 
 
+# def logout_view(request):
+#     logout(request)
+#     return redirect('login')
+
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect("/")

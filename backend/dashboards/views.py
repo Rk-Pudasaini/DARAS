@@ -231,6 +231,11 @@ def use_model(request):
 # ================================
 @login_required
 def about(request):
+        # Only students should access about page in student section
+    if request.user.is_staff or request.user.is_superuser:
+        return redirect('admin_dashboard')
+    
+    
     return render(request, 'students/about.html')
 
 
